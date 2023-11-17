@@ -1,7 +1,9 @@
 altair==4
+
+# https://stackoverflow.com/questions/72352279/i-dont-understand-the-error-message-streamlit-app#:~:text=This%20is%20a%20bug%2C%20where%20the%20Click%20module,requirements%20file%20or%20upgrade%20Streamlit%20above%201.8.1%20https%3A%2F%2Fdiscuss.streamlit.io%2Ft%2Fattributeerror-module-click-has-no-attribute-get-os-args%2F23621%2F12
 click
-#streamlit==1.5.0
 streamlit>=1.8.1
+
 pandas
 protobuf==3.20.*
 vega-datasets
