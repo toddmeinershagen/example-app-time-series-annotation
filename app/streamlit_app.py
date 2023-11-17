@@ -8,14 +8,14 @@ st.set_page_config(
 )
 
 
-@st.cache_data
+@st.experimental_memo
 def get_data():
     source = data.stocks()
     source = source[source.date.gt("2004-01-01")]
     return source
 
 
-@st.cache_data(ttl=60 * 60 * 24)
+@st.experimental_memo(ttl=60 * 60 * 24)
 def get_chart(data):
     hover = alt.selection_single(
         fields=["date"],
@@ -25,12 +25,13 @@ def get_chart(data):
     )
 
     lines = (
-        alt.Chart(data, height=500, title="Evolution of stock prices")
+        alt.Chart(data, title="Evolution of stock prices")
         .mark_line()
         .encode(
-            x=alt.X("date", title="Date"),
-            y=alt.Y("price", title="Price"),
+            x="date",
+            y="price",
             color="symbol",
+            # strokeDash="symbol",
         )
     )
 
@@ -105,8 +106,7 @@ st.altair_chart((chart + annotation_layer).interactive(), use_container_width=Tr
 st.write("## Code")
 
 st.write(
-    "See more in our public [GitHub"
-    " repository](https://github.com/streamlit/example-app-time-series-annotation)"
+    "See more in our public [GitHub repository](https://github.com/streamlit/example-app-time-series-annotation)"
 )
 
 st.code(
@@ -116,7 +116,7 @@ import pandas as pd
 import streamlit as st
 from vega_datasets import data
 
-@st.cache_data
+@st.experimental_memo
 def get_data():
     source = data.stocks()
     source = source[source.date.gt("2004-01-01")]
